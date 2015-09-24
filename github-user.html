@@ -1,0 +1,79 @@
+<!-- IMPORT REQUIRED DEPENDENCIES -->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../layout/layout.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-image/iron-image.html">
+
+<!-- DECLARE POLYMER COMPONENT -->
+<dom-module id='github-user'>
+  <!-- IMPORT ASSOCIATED CSS FILE -->
+  <link rel="import" type="css" href="style.css">
+  <template>
+    <!-- REQUEST DATA USING <iron-ajax> -->
+    <iron-ajax auto url='{{_apiUrl(username)}}' last-response='{{user}}' loading='{{loading}}'></iron-ajax>
+
+    <!-- OUTPUT DATA -->
+    <div class='layout vertical center wrap'>
+      <div class="layout horizontal center fullwidth profile-top">
+        <iron-image class="avatar" sizing="contain" src="{{user.avatar_url}}" placeholder="http://cdn.flaticon.com/svg/25/25231.svg" preload fade></iron-image>
+        <div class="layout vertical" hidden$="{{loading}}">
+          <a class="user-name" href$="{{user.html_url}}">{{user.name}}</a>
+          <a class="user-login" href$="{{user.html_url}}">{{user.login}}</a>
+        </div>
+        <div class="spinner" hidden$="{{!loading}}">
+          <div class="double-bounce1"></div>
+          <div class="double-bounce2"></div>
+        </div>
+      </div>
+      <div class="layout horizontal center around-justified fullwidth profile-bottom">
+        <a href$="{{_reposUrl(user.html_url)}}" class="layout vertical center">
+          <span>{{user.public_repos}}</span>
+          <span>Repos</span>
+        </a>
+        <a href$="{{_gistsUrl(user.login)}}" class="layout vertical center">
+          <span>{{user.public_gists}}</span>
+          <span>Gists</span>
+        </a>
+        <a href$="{{_followersUrl(user.login)}}" class="layout vertical center">
+          <span>{{user.followers}}</span>
+          <span>Followers</span>
+        </a>
+      </div>
+    </div>
+  </template>
+</dom-module>
+<script>
+(function() {
+  // Register Polymer component
+  // notice the id of <dom-module> matches the 
+  // property `is`
+  Polymer({
+    is: 'github-user',
+    properties: {
+      // My declared list of properties that are passable
+      // as HTML attributes
+      username: {
+        type: String,
+        value: ''
+      }
+    },
+    // Private functions (functions prefixed with the '_') to assist in the dynamic resolution of links
+    _apiUrl: function(username) {
+      if (!username) return;
+      return 'https://api.github.com/users/' + username;
+    },
+    _reposUrl: function(html_url) {
+      return html_url + '?tab=repositories';
+    },
+    _gistsUrl: function(username) {
+      return 'https://gist.github.com/' + username;
+    },
+    _followersUrl: function(username) {
+      return 'https://github.com/' + username + '/followers';
+    },
+    _followingUrl: function(username) {
+      return 'https://github.com/' + username + '/following';
+    },
+  });
+})();
+</script>

@@ -1,0 +1,24 @@
+{
+  "name": "github-user",
+  "version": "0.0.0",
+  "authors": [
+    "Josh Crowther <jshcrowthe@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-ajax": "PolymerElements/iron-ajax#~1.0.4",
+    "iron-image": "PolymerElements/iron-image#~1.0.2",
+    "layout": "Polymer/layout",
+    "polymer": "Polymer/polymer#~1.1.3"
+  },
+  "resolutions": {
+    "polymer": "~1.1.3"
+  }
+}

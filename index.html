@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <title>Github User Demo</title>
+  <link rel="import" href="./github-user.html">
+</head>
+<body>
+  <github-user username='{{username}}'></github-user>
+  <p>
+    <label>Username:</label>
+    <input type="text" ng-model="username">
+  </p>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+</body>
+</html>
